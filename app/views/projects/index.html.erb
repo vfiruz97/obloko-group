@@ -1,0 +1,55 @@
+<div id="divHead">
+	<h1>Задачи</h1>
+	<a href='#'  id='show-add-form'>
+		<img src='<%=image_path("addTodoIcon.png")%>' alt='add Todo' />
+	</a>
+</div>
+
+<div class='container'>
+<div id='todo-list-area' class='row'>
+<% @projects.each do |project| %>
+<div class='col-md-4 col-lg-4 col-sm-4'>
+<div class="panel panel-default">
+	<div class="panel-header"><h4><%= project.title %></h4></div>
+  <div class="panel-body">
+	<% project.todos.each do |todo| %>
+	<ul class='todo-list'>
+		<li>
+		 <input type="checkbox" name='todo[is_completed_<%=todo.id %>]' id="todo[is_completed_<%=todo.id %>]" data-id='<%=todo.id %>' <%='checked' if todo.is_completed %> />
+	     <label class='<%='crossOfList' if todo.is_completed %>' for="todo[is_completed_<%=todo.id %>]"><%= todo.text %></label>	
+		</li>
+	</ul>
+	<% end %>
+  </div>
+</div>
+</div>
+<% end %> 
+</div>
+</div>
+
+<div id='form-add-todos' class="modalDialog">
+	<div>
+	<div class="title-todo-odd-form">
+		НОВАЯ ЗАДАЧА
+	</div>
+	<%= form_with model: @todo, url: create_path  do |form| %>
+	 <%= fields :todo do |fields| %>
+	<div class="field-title-add-todo-form">
+		<%= fields.text_field :text, {:placeholder => 'Название задачи...'} %>
+	</div>
+	<% end %>
+	<% cities_array = @projects.map { |city| [city.title, city.id] } %>
+	<div class="select-add-todo-form">
+		<select class="js-example-disabled-results" name="todo[project_id]" id="todo_project_id">
+	   	 <%= options_for_select(cities_array) %>
+	 	</select>
+	</div>
+	<div class="submit-button-add-todo-form">
+	 <%= submit_tag("Отмена", { :name => 'reset', :id => 'reset_button', :type => "reset", :class => 'btn btn-secondary' }) %> 
+	 <%= submit_tag("Ок", { :name => 'submit', :id => 'submit_button', :type => "submit", :class => 'btn btn-primary' }) %>
+	</div>
+	<% end %>
+
+	</div>
+</div>
+

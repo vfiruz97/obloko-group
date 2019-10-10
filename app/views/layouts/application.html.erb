@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>OblokoGroup</title>
+    <%= csrf_meta_tags %>
+    <meta content="width=device-width" name="viewport">
+    <%= javascript_include_tag 'https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js' %>
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>  
+  </head>
+  <body>
+    <%=yield %>
+  </body>
+</html>
